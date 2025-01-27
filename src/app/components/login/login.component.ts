@@ -32,10 +32,14 @@ export class LoginComponent {
     console.log("login >>>>>>>>>>>>>>>>>>>>>. ",this.loginForm.value);
     if (this.loginForm.valid) {
       this.http.post('http://localhost:8080/customer/login', this.loginForm.value)
-        .subscribe(response => {
+        .subscribe((response: any) => {
           // Handle successful login
           console.log('Login successful', response);
-          this.router.navigate(['/customers']);
+          if (response.admin === true) {
+        this.router.navigate(['/customers']);
+          } else {
+        this.router.navigate(['/accounts', response.id]);
+          }
         }, error => {
           // Handle login error
           alert('wrong username or password');

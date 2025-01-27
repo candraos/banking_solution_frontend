@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Accounts</h1>
+
+  <form [formGroup]="addAccountForm" (ngSubmit)="onAddAccount()">
+    <div class="form-group" style="display: none;">
+      <label for="ownerId">Owner ID</label>
+      <input id="ownerId" formControlName="ownerId" class="form-control" readonly>
+    </div>
+    <button type="submit" class="btn btn-success">Add Account</button>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Account ID</th>
+        <th>Balance</th>
+        <th>Status</th>
+        <th>Created at</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of accounts">
+        <td>{{ account.id }}</td>
+        <td>{{ account.balance }}</td>
+        <td>{{ account.status }}</td>
+        <td>{{ account.createdAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
