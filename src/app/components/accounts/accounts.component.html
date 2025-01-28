@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Accounts</h1>
 
-  <form [formGroup]="addAccountForm" (ngSubmit)="onAddAccount()">
+  <form *ngIf="isAdmin" [formGroup]="addAccountForm" (ngSubmit)="onAddAccount()">
     <div class="form-group" style="display: none;">
       <label for="ownerId">Owner ID</label>
       <input id="ownerId" formControlName="ownerId" class="form-control" readonly>
@@ -16,6 +16,7 @@
         <th>Balance</th>
         <th>Status</th>
         <th>Created at</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +25,11 @@
         <td>{{ account.balance }}</td>
         <td>{{ account.status }}</td>
         <td>{{ account.createdAt }}</td>
+        <td>
+          <button *ngIf="isAdmin" class="btn btn-primary" (click)="showTransactions(account.id)">Show Transaction</button>
+
+          <button *ngIf="!isAdmin" class="btn btn-primary" (click)="onMakeTransaction(account.id)">Make Transaction</button>
+        </td>
       </tr>
     </tbody>
   </table>

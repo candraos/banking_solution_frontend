@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router,RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup,FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -20,7 +21,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private userService: UserService
+
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -35,10 +38,12 @@ export class LoginComponent {
         .subscribe((response: any) => {
           // Handle successful login
           console.log('Login successful', response);
+          this.userService.setUserId(response.id); // Save user ID
+
           if (response.admin === true) {
         this.router.navigate(['/customers']);
           } else {
-        this.router.navigate(['/accounts', response.id]);
+        this.router.navigate(['/accounts', response.id], { queryParams: { admin: response.isAdmin } });
           }
         }, error => {
           // Handle login error

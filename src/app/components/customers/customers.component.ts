@@ -41,6 +41,6 @@ export class CustomersComponent implements OnInit {
   }
 
   checkAccounts(customerId: string) {
-    this.router.navigate(['/accounts', customerId]);
+    this.router.navigate(['/accounts', customerId],{ queryParams: { admin: true } });
   }
 }

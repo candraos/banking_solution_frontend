@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Transaction list</h1>
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount Transfered</th>
+        <th>Transfered At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.status }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.createdAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
